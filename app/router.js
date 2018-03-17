@@ -17,27 +17,32 @@ import { connect } from 'react-redux'
 import Loading from './containers/Loading'
 import Login from './containers/Login'
 import Home from './containers/Home'
-import Account from './containers/Account'
-import Detail from './containers/Detail'
+import MenuDish from './containers/MenuDish'
+import Qrscanner from './containers/Qrscanner'
+import NewForm from './containers/NewForm'
+import ItemMenu from './containers/ItemMenu'
 
-const HomeNavigator = TabNavigator(
-  {
-    Home: { screen: Home },
-    Account: { screen: Account },
-  },
-  {
-    tabBarComponent: TabBarBottom,
-    tabBarPosition: 'bottom',
-    swipeEnabled: false,
-    animationEnabled: false,
-    lazyLoad: false,
-  }
-)
+// const HomeNavigator = TabNavigator(
+//   {
+//     Home: { screen: Home },
+//
+//   },
+//   {
+//     tabBarComponent: TabBarBottom,
+//     tabBarPosition: 'bottom',
+//     swipeEnabled: false,
+//     animationEnabled: false,
+//     lazyLoad: false,
+//   }
+// )
 
 const MainNavigator = StackNavigator(
   {
-    HomeNavigator: { screen: HomeNavigator },
-    Detail: { screen: Detail },
+    HomeNavigator: { screen: Home },
+    qrscanner: { screen: Qrscanner },
+    newform: { screen: NewForm },
+    itemmenu: { screen: ItemMenu },
+    List: { screen: MenuDish },
   },
   {
     headerMode: 'float',

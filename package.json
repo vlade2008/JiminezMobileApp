@@ -1,22 +1,28 @@
 {
-  "name": "DvaStarter",
+  "name": "qrscannerMobile",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
     "prettier": "prettier --write --single-quote --no-semi --trailing-comma es5 --print-width 80 \"app/**/*.js\"",
-    "lint": "eslint app",
-    "format": "yarn prettier && yarn lint -- --fix",
-    "precommit": "yarn format"
+    "lint": "eslint app"
   },
   "dependencies": {
+    "antd-mobile": "^2.1.7",
     "dva-core": "^1.1.0",
+    "lodash": "^4.17.5",
+    "rc-form": "^2.1.7",
     "react": "^16.3.0-alpha.0",
+    "react-addons-update": "^15.6.2",
+    "react-dom": "^16.2.0",
     "react-native": "^0.54.0",
+    "react-native-camera": "^0.12.0",
+    "react-native-device-detection": "^0.2.0",
     "react-navigation": "^1.4.0",
     "react-navigation-redux-helpers": "^1.0.3",
-    "react-redux": "^5.0.7"
+    "react-redux": "^5.0.7",
+    "realm": "2.2.8"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.2",
