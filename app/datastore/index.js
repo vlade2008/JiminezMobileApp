@@ -13,7 +13,25 @@ const MenuSchemaObject = {
   },
 }
 
+const PatientSchemaObject = {
+  name: 'patient',
+  primaryKey: 'id',
+  properties: {
+    id: { type: 'int' },
+    name: { type: 'string'},
+    date_admitted: { type: 'string' },
+    date_discharge: { type: 'string' },
+    pf: { type: 'string'},
+    pf_philhealth: { type: 'string'},
+    hospital: { type: 'string' },
+    status: { type: 'bool'},
+  },
+}
+
 class MenuSchema extends Realm.Object {}
 MenuSchema.schema = MenuSchemaObject
 
-export default new Realm({ schema: [MenuSchema] })
+class PatientSchema extends Realm.Object {}
+PatientSchema.schema = PatientSchemaObject
+
+export default new Realm({ schema: [MenuSchema, PatientSchema] })

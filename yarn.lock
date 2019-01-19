@@ -4374,6 +4374,13 @@ prop-types@15.x, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, pr
     loose-envify "^1.3.1"
     object-assign "^4.1.1"
 
+prop-types@^15.6.2:
+  version "15.6.2"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
+  dependencies:
+    loose-envify "^1.3.1"
+    object-assign "^4.1.1"
+
 pseudomap@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/pseudomap/-/pseudomap-1.0.2.tgz#f052a28da70e618917ef0a8ac34c1ae5a68286b3"
@@ -4600,6 +4607,17 @@ react-native-drawer-layout@1.3.2, react-native-drawer-layout@~1.3.0:
   resolved "https://registry.yarnpkg.com/react-native-drawer-layout/-/react-native-drawer-layout-1.3.2.tgz#b9740d7663a1dc4f88a61b9c6d93d2d948ea426e"
   dependencies:
     react-native-dismiss-keyboard "1.0.0"
+
+react-native-iphone-x-helper@^1.0.3:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.0.tgz#9f8a376eb00bc712115abff4420318a0063fa796"
+
+react-native-keyboard-aware-scroll-view@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/react-native-keyboard-aware-scroll-view/-/react-native-keyboard-aware-scroll-view-0.8.0.tgz#00bcaa38c91323913bb7a733059ad2bc4875f88c"
+  dependencies:
+    prop-types "^15.6.2"
+    react-native-iphone-x-helper "^1.0.3"
 
 react-native-menu@^0.23.0:
   version "0.23.0"

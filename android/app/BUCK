@@ -45,12 +45,12 @@ android_library(
 
 android_build_config(
     name = "build_config",
-    package = "com.qrscannermobile",
+    package = "com.jiminezmobileapp",
 )
 
 android_resource(
     name = "res",
-    package = "com.qrscannermobile",
+    package = "com.jiminezmobileapp",
     res = "src/main/res",
 )
 

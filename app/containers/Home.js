@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, Text } from 'react-native'
 import { connect } from 'react-redux'
 import { Button, Icon, Flex } from 'antd-mobile'
 
@@ -14,44 +14,44 @@ class Home extends Component {
     tabBarIcon: () => <Icon type="\ue65e" size={55} />,
   }
 
-  componentDidMount() {
-    this.props.dispatch(createAction('menudish/getMenu')())
+
+  notpaid = () => {
+    this.props.dispatch(NavigationActions.navigate({ routeName: 'NotPaidNavigator' }))
   }
 
-  qrscanner = () => {
-    this.props.dispatch(NavigationActions.navigate({ routeName: 'qrscanner' }))
-  }
-
-  gotoMenu = () => {
-    this.props.dispatch(NavigationActions.navigate({ routeName: 'List' }))
+  paid = () => {
+    this.props.dispatch(NavigationActions.navigate({ routeName: 'PaidNavigator' }))
   }
 
   render() {
     return (
       <View style={styles.container}>
+        <Text style={{ fontSize: computeSize(50), textAlign: 'center', marginBottom: computeSize(50) }}>
+          Select Patient List
+        </Text>
         <Flex>
-          <Flex.Item>
-            <Button
-              type="primary"
-              onClick={this.qrscanner}
-              style={{
-                justifyContent: 'center',
-                height: computeSize(250),
-              }}
-            >
-              Scan Qr{' '}
-            </Button>
-          </Flex.Item>
-          <Flex.Item>
+          <Flex.Item style={{padding: computeSize(20)}}>
             <Button
               type="warning"
-              onClick={this.gotoMenu}
+              onClick={this.notpaid}
               style={{
                 justifyContent: 'center',
                 height: computeSize(250),
               }}
             >
-              List Menu{' '}
+             Patient Not Paid
+            </Button>
+          </Flex.Item>
+          <Flex.Item style={{padding: computeSize(20)}}>
+            <Button
+              type="primary"
+              onClick={this.paid}
+              style={{
+                justifyContent: 'center',
+                height: computeSize(250),
+              }}
+            >
+              Patient Paid
             </Button>
           </Flex.Item>
         </Flex>
@@ -63,7 +63,7 @@ class Home extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    marginTop: computeSize(100)
   },
 })
 

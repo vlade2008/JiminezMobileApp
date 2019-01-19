@@ -9,6 +9,7 @@ import Router, { routerMiddleware } from './router'
 import appModel from './models/app'
 import routerModel from './models/router'
 import menudish from './models/menudish'
+import patient from './models/patient'
 
 console.ignoredYellowBox = [
   'Warning: componentWillMount is deprecated',
@@ -18,7 +19,7 @@ console.ignoredYellowBox = [
 
 const app = dva({
   initialState: {},
-  models: [appModel, routerModel, menudish],
+  models: [appModel, routerModel, menudish, patient],
   onAction: [routerMiddleware],
   onError(e) {
     console.log('onError', e)
@@ -31,4 +32,4 @@ const App = app.start(
   </LocaleProvider>
 )
 
-AppRegistry.registerComponent('qrscannerMobile', () => App)
+AppRegistry.registerComponent('JiminezMobileApp', () => App)

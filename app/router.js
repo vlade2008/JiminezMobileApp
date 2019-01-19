@@ -15,34 +15,27 @@ import {
 import { connect } from 'react-redux'
 
 import Loading from './containers/Loading'
-import Login from './containers/Login'
+// import Login from './containers/Login'
 import Home from './containers/Home'
-import MenuDish from './containers/MenuDish'
-import Qrscanner from './containers/Qrscanner'
-import NewForm from './containers/NewForm'
-import ItemMenu from './containers/ItemMenu'
+// import MenuDish from './containers/MenuDish'
+// import Qrscanner from './containers/Qrscanner'
+// import NewForm from './containers/NewForm'
+// import ItemMenu from './containers/ItemMenu'
 
-// const HomeNavigator = TabNavigator(
-//   {
-//     Home: { screen: Home },
-//
-//   },
-//   {
-//     tabBarComponent: TabBarBottom,
-//     tabBarPosition: 'bottom',
-//     swipeEnabled: false,
-//     animationEnabled: false,
-//     lazyLoad: false,
-//   }
-// )
+import PatientNotPaid from './scene/PatientNotPaid'
+import PatientPaid from './scene/PatientPaid'
+import PatientForm from './scene/PatientForm'
 
 const MainNavigator = StackNavigator(
   {
     HomeNavigator: { screen: Home },
-    qrscanner: { screen: Qrscanner },
-    newform: { screen: NewForm },
-    itemmenu: { screen: ItemMenu },
-    List: { screen: MenuDish },
+    PaidNavigator: { screen: PatientPaid },
+    NotPaidNavigator: {screen: PatientNotPaid },
+    PatientFormNavigator : { screen: PatientForm }
+    // qrscanner: { screen: Qrscanner },
+    // newform: { screen: NewForm },
+    // itemmenu: { screen: ItemMenu },
+    // List: { screen: MenuDish },
   },
   {
     headerMode: 'float',
@@ -52,7 +45,7 @@ const MainNavigator = StackNavigator(
 const AppNavigator = StackNavigator(
   {
     Main: { screen: MainNavigator },
-    Login: { screen: Login },
+    // Login: { screen: Login },
   },
   {
     headerMode: 'none',

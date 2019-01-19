@@ -1,5 +1,5 @@
 {
-  "name": "qrscannerMobile",
+  "name": "JiminezMobileApp",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -19,6 +19,7 @@
     "react-native": "^0.54.0",
     "react-native-camera": "^0.12.0",
     "react-native-device-detection": "^0.2.0",
+    "react-native-keyboard-aware-scroll-view": "^0.8.0",
     "react-navigation": "^1.4.0",
     "react-navigation-redux-helpers": "^1.0.3",
     "react-redux": "^5.0.7",
