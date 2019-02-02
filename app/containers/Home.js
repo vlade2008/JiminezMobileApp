@@ -1,17 +1,21 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, Clipboard } from 'react-native'
 import { connect } from 'react-redux'
 import { Button, Icon, Flex } from 'antd-mobile'
 
 import { NavigationActions, createAction } from '../utils'
 import { computeSize } from '../utils/DeviceRatio'
 
-@connect(({ app }) => ({ ...app }))
+@connect(({ app,patient }) => ({ ...app,patient }))
 class Home extends Component {
   static navigationOptions = {
     title: 'Home',
     tabBarLabel: 'Home',
     tabBarIcon: () => <Icon type="\ue65e" size={55} />,
+  }
+
+  componentDidMount(){
+    this.props.dispatch(createAction('patient/getPatient')())
   }
 
 
@@ -21,6 +25,12 @@ class Home extends Component {
 
   paid = () => {
     this.props.dispatch(NavigationActions.navigate({ routeName: 'PaidNavigator' }))
+  }
+
+  backup = async () =>{
+    let data = JSON.stringify(this.props.patient.records);
+    await Clipboard.setString(data);
+    alert('Copied to Data!');
   }
 
   render() {
@@ -52,6 +62,19 @@ class Home extends Component {
               }}
             >
               Patient Paid
+            </Button>
+          </Flex.Item>
+        </Flex>
+        <Flex>
+          <Flex.Item style={{padding: computeSize(20)}}>
+            <Button
+              onClick={this.backup}
+              style={{
+                justifyContent: 'center',
+                height: computeSize(250),
+              }}
+            >
+             Backup
             </Button>
           </Flex.Item>
         </Flex>
