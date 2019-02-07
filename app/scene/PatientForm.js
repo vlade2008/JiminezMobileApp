@@ -69,6 +69,7 @@ class PatientForm extends Component {
               )
             })
           } catch (e) {
+            Toast.success(e, 1)
             console.log(e, 'error update')
           }
         } else {
@@ -76,13 +77,14 @@ class PatientForm extends Component {
             Realm.write(() => {
               Realm.create('patient', {
                 id: initialId,
-                name: values.name,
-                date_admitted: values.date_admitted,
-                date_discharge: values.date_discharge,
-                pf: values.pf,
-                pf_philhealth: values.pf_philhealth,
-                hospital: values.hospital,
+                name: values.name || '',
+                date_admitted: values.date_admitted || '',
+                date_discharge: values.date_discharge || '',
+                pf: values.pf || '',
+                pf_philhealth: values.pf_philhealth || '',
+                hospital: values.hospital || '',
                 status: false,
+                status_philhealth: false,
               })
             })
           } catch (e) {
@@ -141,7 +143,7 @@ class PatientForm extends Component {
             initialValue: this.props.patient.activeRecord.pf,
             rules: [
               {
-                required: true,
+                required: false,
                 message: 'PF!',
               },
             ],
@@ -166,7 +168,7 @@ class PatientForm extends Component {
             initialValue: this.props.patient.activeRecord.pf_philhealth,
             rules: [
               {
-                required: true,
+                required: false,
                 message: 'PF PhilHealth!',
               },
             ],
@@ -215,7 +217,7 @@ class PatientForm extends Component {
             initialValue: this.props.patient.activeRecord.date_discharge,
             rules: [
               {
-                required: true,
+                required: false,
                 message: 'Date Discharge!',
               },
             ],
@@ -241,7 +243,7 @@ class PatientForm extends Component {
             initialValue: this.props.patient.activeRecord.date_admitted,
             rules: [
               {
-                required: true,
+                required: false,
                 message: 'Date Admitted!',
               },
             ],

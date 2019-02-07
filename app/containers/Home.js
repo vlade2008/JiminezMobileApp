@@ -27,6 +27,10 @@ class Home extends Component {
     this.props.dispatch(NavigationActions.navigate({ routeName: 'PaidNavigator' }))
   }
 
+  admitted = () => {
+    this.props.dispatch(NavigationActions.navigate({ routeName: 'PatientAdmittedNavigator' }))
+  }
+
   backup = async () =>{
     let data = JSON.stringify(this.props.patient.records);
     await Clipboard.setString(data);
@@ -40,6 +44,18 @@ class Home extends Component {
           Select Patient List
         </Text>
         <Flex>
+        <Flex.Item style={{padding: computeSize(20)}}>
+          <Button
+            type="warning"
+            onClick={this.admitted}
+            style={{
+              justifyContent: 'center',
+              height: computeSize(250),
+            }}
+          >
+           Patient Admitted
+          </Button>
+        </Flex.Item>
           <Flex.Item style={{padding: computeSize(20)}}>
             <Button
               type="warning"

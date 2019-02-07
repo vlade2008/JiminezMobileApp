@@ -25,6 +25,7 @@ const PatientSchemaObject = {
     pf_philhealth: { type: 'string'},
     hospital: { type: 'string' },
     status: { type: 'bool'},
+    status_philhealth: { type: 'bool'},
   },
 }
 

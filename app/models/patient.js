@@ -51,6 +51,7 @@ export default {
             values.hospital = data.hospital
             values.status = data.status
             values.nameAndHospital = data.name + ' ' + data.hospital
+            values.status_philhealth = data.status_philhealth
             return values
           })
         } catch (e) {

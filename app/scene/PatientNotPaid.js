@@ -19,7 +19,7 @@ class PatientNotPaid extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <PatientList status={false} />
+        <PatientList notpaid={true} />
 
       </View>
     )

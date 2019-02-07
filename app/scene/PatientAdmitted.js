@@ -8,10 +8,10 @@ import { computeSize } from '../utils/DeviceRatio'
 import PatientList from './PatientList';
 
 @connect(({ app }) => ({ ...app }))
-class PatientPaid extends Component {
+class PatientAdmitted extends Component {
   static navigationOptions = {
-    title: 'Patient Paid',
-    tabBarLabel: 'Patient Paid',
+    title: 'Patient Admitted ',
+    tabBarLabel: 'Patient Admitted Paid',
     tabBarIcon: () => <Icon type="\ue65e" size={55} />,
   }
 
@@ -19,7 +19,8 @@ class PatientPaid extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <PatientList status={true} />
+        <PatientList admitted={true}/>
+
       </View>
     )
   }
@@ -31,4 +32,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default PatientPaid
+export default PatientAdmitted

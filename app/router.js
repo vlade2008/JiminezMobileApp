@@ -25,13 +25,15 @@ import Home from './containers/Home'
 import PatientNotPaid from './scene/PatientNotPaid'
 import PatientPaid from './scene/PatientPaid'
 import PatientForm from './scene/PatientForm'
+import PatientAdmitted from './scene/PatientAdmitted'
 
 const MainNavigator = StackNavigator(
   {
     HomeNavigator: { screen: Home },
     PaidNavigator: { screen: PatientPaid },
     NotPaidNavigator: {screen: PatientNotPaid },
-    PatientFormNavigator : { screen: PatientForm }
+    PatientFormNavigator : { screen: PatientForm },
+    PatientAdmittedNavigator : { screen: PatientAdmitted }
     // qrscanner: { screen: Qrscanner },
     // newform: { screen: NewForm },
     // itemmenu: { screen: ItemMenu },

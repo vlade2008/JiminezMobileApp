@@ -102,15 +102,35 @@ class PatientList extends Component {
     let paid = status ? 'Change to PAID' : 'Change to NOT PAID' ;
       alert(paid, 'Are you sure???', [
         { text: 'Cancel', onPress: () => console.log('cancel') },
-        { text: 'Ok', onPress: this.onSuccessPaid(id,status) },
+        { text: 'Ok', onPress: this.onSuccessPaid(id,status,false) },
       ])
     }
 
-  onSuccessPaid = (id,status) => () => {
-      const idx = _.findIndex(this.props.patient.records, { id })
+  onConfirmModalPhilHealth = (id, status) => () => {
+    let paid = status ? 'Change to PAID PhilHealth' : 'Change to NOT PAID PhilHealth' ;
+      alert(paid, 'Are you sure???', [
+        { text: 'Cancel', onPress: () => console.log('cancel') },
+        { text: 'Ok', onPress: this.onSuccessPaid(id,status,true) },
+      ])
+    }
 
+  onConfirmDeleteModal = (id) => () => {
+      alert('Delete this Patient', 'Are you sure???', [
+        { text: 'Cancel', onPress: () => console.log('cancel') },
+        { text: 'Ok', onPress: this.onDeletePatient(id)},
+      ])
+    }
+
+  onSuccessPaid = (id,status,philhealth) => () => {
+      const idx = _.findIndex(this.props.patient.records, { id })
       const activeRecord = this.props.patient.records[idx]
-      activeRecord.status = status;
+      if(philhealth){
+        activeRecord.status_philhealth = status
+      }else{
+        activeRecord.status = status;
+      }
+      delete activeRecord.nameAndHospital
+
 
       try {
         Realm.write(() => {
@@ -128,6 +148,41 @@ class PatientList extends Component {
 
       Toast.success('Success !!!', 1)
       this.getPatientList()
+    }
+
+    onDeletePatient  = (id) => {
+      return ()=>{
+        const idx = _.findIndex(this.props.patient.records, { id })
+        const activeRecord = this.props.patient.records[idx]
+
+        let cloneData = _.clone(this.props.patient.records)
+
+        cloneData = _.filter(this.props.patient.records, (o)=> {
+            return o.id != id
+        })
+
+        try {
+          Realm.write(() => {
+            let patient = Realm.objects('patient');
+            Realm.delete(patient)
+          })
+          Realm.write(()=>{
+            _.map(cloneData,(data,i)=>{
+              delete data.nameAndHospital;
+                Realm.create('patient', {
+                  ...data
+                })
+            })
+          })
+        } catch (e) {
+          Toast.success(e, 1)
+          console.log(e, 'error haha na boang napd')
+        }
+
+        Toast.success('Success !!!', 1)
+        this.getPatientList()
+      }
+
     }
 
     renderItem = rowdata => (
@@ -159,7 +214,7 @@ class PatientList extends Component {
                   <Text style={{ fontSize: computeSize(30) }}>Admitted:</Text>
                 </Flex.Item>
                 <Flex.Item style={{flex:0.7}}>
-                  <Text style={{ fontSize: computeSize(30) }}>{rowdata.date_discharge}</Text>
+                  <Text style={{ fontSize: computeSize(30) }}>{rowdata.date_admitted}</Text>
                 </Flex.Item>
               </Flex>
 
@@ -175,7 +230,7 @@ class PatientList extends Component {
               <WhiteSpace size="lg" />
               <Text style={{ fontSize: computeSize(30) }}>Payments</Text>
               <WhiteSpace size="lg" />
-              
+
               <Flex wrap='wrap'>
                 <Flex.Item style={{flex:0.3}}>
                   <Text style={{ fontSize: computeSize(30) }}>PF:</Text>
@@ -193,22 +248,46 @@ class PatientList extends Component {
                   <Text style={{ fontSize: computeSize(30),fontWeight: 'bold',color:'#f96268' }}>₱ {rowdata.pf_philhealth}</Text>
                 </Flex.Item>
               </Flex>
-
-
-
+              <Flex wrap='wrap'>
+                <Flex.Item style={{flex:0.5}}>
+                {
+                  rowdata.status ? (
+                    <Button onClick={this.onConfirmModal(rowdata.id,false)} type="primary">
+                      Paid PF
+                    </Button>
+                  ): (
+                    <Button onClick={this.onConfirmModal(rowdata.id,true)} type="warning">
+                      Not Paid PF
+                    </Button>
+                  )
+                }
+                </Flex.Item>
+                <Flex.Item style={{flex:0.5}}>
+                {
+                  rowdata.status_philhealth ? (
+                    <Button onClick={this.onConfirmModalPhilHealth(rowdata.id,false)} type="primary">
+                      Paid PF PhilHealth
+                    </Button>
+                  ): (
+                    <Button onClick={this.onConfirmModalPhilHealth(rowdata.id,true)} type="warning">
+                      Not Paid PF PhilHealth
+                    </Button>
+                  )
+                }
+                </Flex.Item>
+              </Flex>
+              <Flex style={{flex:1, marginTop:10}}>
+              {
+                rowdata.status_philhealth && rowdata.status ? (
+                  <Button type='warning' onClick={this.onConfirmDeleteModal(rowdata.id)}>
+                    Delete Patient
+                  </Button>
+                ) : null
+              }
+              </Flex>
             </View>
           </Card.Body>
-          <Card.Footer extra={
-            rowdata.status ? (
-              <Button onClick={this.onConfirmModal(rowdata.id,false)} type="primary">
-                Paid
-              </Button>
-            ): (
-              <Button onClick={this.onConfirmModal(rowdata.id,true)} type="warning">
-                Not Paid
-              </Button>
-            )
-          } />
+          <Card.Footer/>
         </Card>
         <WhiteSpace size="lg" />
       </WingBlank>
@@ -220,7 +299,15 @@ class PatientList extends Component {
 
   render() {
     let data = _.filter(this.props.patient.records, (o)=> {
-      return o.status === this.props.status
+      if(this.props.admitted){
+        return _.isEmpty(o.date_discharge)
+      }
+      if(this.props.status){
+        return o.status == true && o.status_philhealth == true
+      }
+      if(this.props.notpaid){
+        return !_.isEmpty(o.date_discharge) && (o.status == false || o.status_philhealth == false)
+      }
     })
     return (
       <View style={styles.container}>
