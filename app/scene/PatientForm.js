@@ -8,6 +8,7 @@ import {
   Text,
   KeyboardAvoidingView,
   ScrollView,
+  AsyncStorage,
 } from 'react-native'
 import { connect } from 'react-redux'
 import Realm from '../datastore'
@@ -37,12 +38,27 @@ import { NavigationActions, createAction } from '../utils'
 class PatientForm extends Component {
   constructor(props) {
     super(props)
+
+    state = {
+      currentID:'',
+    }
   }
 
   static navigationOptions = {
     title: 'Patient Form',
     tabBarLabel: 'Patient Form',
     tabBarIcon: () => <Icon type="\ue65e" size={55} />,
+  }
+
+  async componentDidMount(){
+
+    let value = await AsyncStorage.getItem('currentid');
+    if (value !== null) {
+      this.setState({
+        currentID: value
+      })
+    }
+
   }
 
 
@@ -54,7 +70,8 @@ class PatientForm extends Component {
   onSubmit = () => {
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        const initialId = this.props.patient.records.length + 2
+        const initialId = parseInt(this.state.currentID) + 1;
+
 
         if (this.props.patient.activeRecord.id) {
           try {
@@ -92,6 +109,14 @@ class PatientForm extends Component {
           }
         }
 
+        try {
+            AsyncStorage.setItem('currentid', initialId.toString());
+        } catch (error) {
+          console.log(error.message);
+        }
+
+
+
         Modal.alert('Success', <Text>Saved</Text>, [
           { text: 'OK', onPress: this.onBack, style: 'default' },
         ])
@@ -127,11 +152,11 @@ class PatientForm extends Component {
               type="string"
               autoCorrect={false}
               ref={c => {
-									me.name = c
-								}}
+                  me.name = c
+                }}
               onSubmitEditing={() => this.pf.inputRef.inputRef.focus()}
-  						blurOnSubmit={false}
-  						returnKeyType={'next'}
+              blurOnSubmit={false}
+              returnKeyType={'next'}
             />
           )}
 
@@ -152,11 +177,11 @@ class PatientForm extends Component {
               type="string"
               autoCorrect={false}
               ref={c => {
-									me.pf = c
-								}}
+                  me.pf = c
+                }}
               onSubmitEditing={() => this.pf_philhealth.inputRef.inputRef.focus()}
-  						blurOnSubmit={false}
-  						returnKeyType={'next'}
+              blurOnSubmit={false}
+              returnKeyType={'next'}
             />
           )}
 
@@ -177,11 +202,11 @@ class PatientForm extends Component {
               type="string"
               autoCorrect={false}
               ref={c => {
-									me.pf_philhealth = c
-								}}
+                  me.pf_philhealth = c
+                }}
               onSubmitEditing={() => this.hospital.inputRef.inputRef.focus()}
-  						blurOnSubmit={false}
-  						returnKeyType={'next'}
+              blurOnSubmit={false}
+              returnKeyType={'next'}
             />
           )}
 
@@ -201,11 +226,11 @@ class PatientForm extends Component {
             <InputItem
               type="string"
               autoCorrect={false}ref={c => {
-									this.hospital = c
-								}}
+                  this.hospital = c
+                }}
               onSubmitEditing={() => this.date_discharge.inputRef.inputRef.focus()}
-  						blurOnSubmit={false}
-  						returnKeyType={'next'}
+              blurOnSubmit={false}
+              returnKeyType={'next'}
             />
           )}
 
@@ -226,11 +251,11 @@ class PatientForm extends Component {
               type="string"
               autoCorrect={false}
               ref={c => {
-									this.date_discharge = c
-								}}
+                  this.date_discharge = c
+                }}
               onSubmitEditing={() => this.date_admitted.inputRef.inputRef.focus()}
-  						blurOnSubmit={false}
-  						returnKeyType={'next'}
+              blurOnSubmit={false}
+              returnKeyType={'next'}
               placeholder='YYYY-MM-DD'
             />
           )}
@@ -252,10 +277,10 @@ class PatientForm extends Component {
               type="string"
               autoCorrect={false}
               ref={c => {
-									this.date_admitted = c
-								}}
+                  this.date_admitted = c
+                }}
               onSubmitEditing={this.onSubmit}
-  						blurOnSubmit={false}
+              blurOnSubmit={false}
               placeholder='YYYY-MM-DD'
             />
           )}

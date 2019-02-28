@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, Clipboard } from 'react-native'
+import { StyleSheet, View, Text, Clipboard, AsyncStorage } from 'react-native'
 import { connect } from 'react-redux'
 import { Button, Icon, Flex } from 'antd-mobile'
 
@@ -14,10 +14,26 @@ class Home extends Component {
     tabBarIcon: () => <Icon type="\ue65e" size={55} />,
   }
 
-  componentDidMount(){
+  async componentDidMount(){
     this.props.dispatch(createAction('patient/getPatient')())
+
+    let value = await AsyncStorage.getItem('currentid');
+    if (value !== null) {
+      console.log(value);
+    }else{
+       this.onAddStorage()
+    }
+
   }
 
+  onAddStorage = async () => {
+    try {
+        await AsyncStorage.setItem('currentid', '70');
+    } catch (error) {
+      console.log(error.message);
+    }
+
+  }
 
   notpaid = () => {
     this.props.dispatch(NavigationActions.navigate({ routeName: 'NotPaidNavigator' }))
@@ -35,6 +51,10 @@ class Home extends Component {
     let data = JSON.stringify(this.props.patient.records);
     await Clipboard.setString(data);
     alert('Copied to Data!');
+  }
+
+  restore = () =>{
+    this.props.dispatch(NavigationActions.navigate({ routeName: 'RestorePageNavigator' }))
   }
 
   render() {
@@ -91,6 +111,19 @@ class Home extends Component {
               }}
             >
              Backup
+            </Button>
+          </Flex.Item>
+        </Flex>
+        <Flex>
+          <Flex.Item style={{padding: computeSize(20)}}>
+            <Button
+              onClick={this.restore}
+              style={{
+                justifyContent: 'center',
+                height: computeSize(250),
+              }}
+            >
+             Restore
             </Button>
           </Flex.Item>
         </Flex>

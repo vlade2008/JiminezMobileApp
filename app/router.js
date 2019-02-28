@@ -26,6 +26,7 @@ import PatientNotPaid from './scene/PatientNotPaid'
 import PatientPaid from './scene/PatientPaid'
 import PatientForm from './scene/PatientForm'
 import PatientAdmitted from './scene/PatientAdmitted'
+import RestorePage from './scene/RestorePage'
 
 const MainNavigator = StackNavigator(
   {
@@ -33,7 +34,8 @@ const MainNavigator = StackNavigator(
     PaidNavigator: { screen: PatientPaid },
     NotPaidNavigator: {screen: PatientNotPaid },
     PatientFormNavigator : { screen: PatientForm },
-    PatientAdmittedNavigator : { screen: PatientAdmitted }
+    PatientAdmittedNavigator : { screen: PatientAdmitted },
+    RestorePageNavigator : { screen: RestorePage },
     // qrscanner: { screen: Qrscanner },
     // newform: { screen: NewForm },
     // itemmenu: { screen: ItemMenu },
