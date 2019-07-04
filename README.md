@@ -10,4 +10,5 @@
 
  <p align="center">
   <img src="./assets/img/home.png" height="500" width="281">
+  <img src="./assets/img/patientlist.png" height="500" width="281">
  </p>
