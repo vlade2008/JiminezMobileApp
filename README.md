@@ -9,5 +9,5 @@
 > react-native run-ios - for Ios
 
  <p align="center">
-  <img src="./assets/img/home.png" height="200" width="200">
+  <img src="./assets/img/home.png" height="500" width="281">
  </p>
