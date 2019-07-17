@@ -1,4 +1,4 @@
-# qrscannerMobile
+# JiminezMobileApp
 
 
 #How to Install
